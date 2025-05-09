@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgre_web
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 65tQmK4mACJ68ob8Jioj7fVFn9qk8dom
+      POSTGRES_DB: web
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pgdata:
