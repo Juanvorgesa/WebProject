@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 import models
 import database
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
-from encryption import encode_token, decode_token, hash_password, verify_password
-
+from encryption import encode_token, decode_token, verify_password, hash_password
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
@@ -31,7 +30,6 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     form_data = models.UserBase(username = form_data.username, password= form_data.password)
     user = database.get_user(form_data, connection)
     if user:
-        print(user)
         if verify_password(form_data.password, user.password):
             token = encode_token(user)
             return token

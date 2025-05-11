@@ -71,7 +71,7 @@ def delete_user(user: models.UserBase, connection):
         if verify_password(user.password, query.password):
             cursor = connection.cursor()
             try:
-                cursor.execute("DELETE FROM users WHERE id=%s", (user.id,))
+                cursor.execute("DELETE FROM users WHERE id=%s", (query.id,))
                 connection.commit()
                 return "User deleted successfully."
             except Exception as ex:
@@ -186,4 +186,3 @@ def update_pump(pump: models.BasePump, connection):
         raise HTTPException(status_code=400, detail=f"Unexpected error. {ex}")
     finally:
         cursor.close()
-    

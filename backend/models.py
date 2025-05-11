@@ -16,8 +16,8 @@ class PumpClass(BaseModel):
 
 class UserClass(BaseModel):
     id: int
-    username: str
     email: str
+    username: str
     password: str
 
 # Create classes.
