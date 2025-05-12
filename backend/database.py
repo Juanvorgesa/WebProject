@@ -69,7 +69,7 @@ def delete_user(user: models.UserBase, connection):
     query = get_user(models.GetUser(username=user.username), connection)
     if query:
         if verify_password(user.password, query.password):
-            cursor = connection.cursor()
+            cursor = getCursor(connection)
             try:
                 cursor.execute("DELETE FROM users WHERE id=%s", (query.id,))
                 connection.commit()
@@ -87,7 +87,7 @@ def update_user(user: models.UpdateUser, connection):
     query = get_user(models.GetUser(username=user.username), connection)
     if query:
         if verify_password(user.old_password, query.password):
-            cursor = connection.cursor()
+            cursor = getCursor(connection)
             try:
                 cursor.execute("UPDATE users SET password=%s WHERE username=%s", (hash_password(user.new_password), user.username))
                 connection.commit()
@@ -105,7 +105,7 @@ def update_user(user: models.UpdateUser, connection):
 # Pumps side.
 
 def get_pump(pump: models.GetPump, connection):
-    cursor = connection.cursor()
+    cursor = getCursor(connection)
     try:
         cursor.execute("SELECT * FROM pumps WHERE id=%s",(pump.id,))
         query = cursor.fetchone()
@@ -116,7 +116,7 @@ def get_pump(pump: models.GetPump, connection):
         cursor.close()
 
 def rename_pump(pump: models.RenamePump, connection):
-    cursor = connection.cursor()
+    cursor = getCursor(connection)
     try:
         cursor.execute("UPDATE pumps SET name=%s WHERE id=%s",(pump.name, pump.id))
         connection.commit()
@@ -128,7 +128,7 @@ def rename_pump(pump: models.RenamePump, connection):
 
 
 def get_pumps(connection):
-    cursor = connection.cursor()
+    cursor = getCursor(connection)
     try:
         cursor.execute("SELECT * FROM pumps ORDER BY id ASC")
         pumps = cursor.fetchall()
@@ -138,8 +138,8 @@ def get_pumps(connection):
     finally:
         cursor.close()
 
-def create_pump(pump: models.BasePump, connection):
-    cursor = connection.cursor()
+def create_pump(pump: models.CreatePump, connection):
+    cursor = getCursor(connection)
     try:
         cursor.execute("INSERT INTO pumps (name, ubication, min_voltage, max_voltage, min_elec_current, max_elec_current, min_flow, max_flow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (pump.name, pump.ubication, pump.min_voltage, pump.max_voltage, pump.min_elec_current, pump.max_elec_current, pump.min_flow, pump.max_flow))
         connection.commit()
@@ -150,7 +150,7 @@ def create_pump(pump: models.BasePump, connection):
         cursor.close()
 
 def alter_pump(pump: models.GetPump, connection):
-    cursor = connection.cursor()
+    cursor = getCursor(connection)
     try:
         cursor.execute("SELECT state FROM pumps WHERE id=%s",(pump.id,))
         pump_state = cursor.fetchone()
@@ -166,7 +166,7 @@ def alter_pump(pump: models.GetPump, connection):
         cursor.close()
 
 def delete_pump(pump: models.GetPump, connection):
-    cursor = connection.cursor()
+    cursor = getCursor(connection)
     try:
         cursor.execute("DELETE FROM users WHERE id=%s", (pump.id,))
         connection.commit()
@@ -177,9 +177,10 @@ def delete_pump(pump: models.GetPump, connection):
         cursor.close()
 
 def update_pump(pump: models.BasePump, connection):
+    cursor = getCursor(connection)
     try:
-        cursor = connection.cursor()
-        cursor.execute("UPDATE pumps SET name=%s, ubication=%s, min_voltage=%s, max_voltage=%s, min_elec_current=%s, max_elec_current=%s, min_flow=%s, max_flow=%s, state=%s WHERE id=%s", (pump.name, pump.ubication, pump.min_voltage, pump.max_voltage, pump.min_elec_current, pump.max_elec_current, pump.min_flow, pump.max_flow, pump.state, pump.id))
+        print(pump)
+        cursor.execute("UPDATE pumps SET name=%s, ubication=%s, min_voltage=%s, max_voltage=%s, min_elec_current=%s, max_elec_current=%s, min_flow=%s, max_flow=%s WHERE id=%s", (pump.name, pump.ubication, pump.min_voltage, pump.max_voltage, pump.min_elec_current, pump.max_elec_current, pump.min_flow, pump.max_flow, pump.id))
         connection.commit()
         return "Pump updated successfully."
     except Exception as ex:

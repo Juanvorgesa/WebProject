@@ -57,6 +57,7 @@ def delete_user(user: models.UserBase):
 
 @app.post("/pump/{id}")
 def get_pump(id):
+    print(id)
     return database.get_pump(models.GetPump(id=id), connection)
 
 @app.get("/pumps")
@@ -77,6 +78,7 @@ def delete_pump(pump: models.GetPump):
 
 @app.post("/pumps")
 def update_pump(pump: models.BasePump):
+    print(pump)
     return database.update_pump(pump, connection)
 
 @app.post("/pumps/rename")

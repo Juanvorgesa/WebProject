@@ -27,6 +27,18 @@ class CreateUser(BaseModel):
     email: str
     password: str
 
+class CreatePump(BaseModel):
+    id: int
+    name: str
+    ubication: str
+    min_voltage: float
+    max_voltage: float
+    min_elec_current: float
+    max_elec_current: float
+    min_flow: float
+    max_flow: float
+
+
 # Query classes.
 
 class GetUser(BaseModel):
@@ -42,6 +54,7 @@ class UserBase(BaseModel):
     password: str
 
 class BasePump(BaseModel):
+    id: int
     name: str
     ubication: str
     min_voltage: float
