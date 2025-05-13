@@ -38,7 +38,7 @@ const cancel = () => {
 }
 
 const updatePump = async (pump) => {
-  const updatedPump ={
+  const updatedPump = {
     id: pump.id,
     name: pump.name,
     ubication: pump.ubication,

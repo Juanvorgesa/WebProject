@@ -8,7 +8,6 @@
   import { ref } from 'vue'
   
   const handleSuccess = () => {
-    // Cargar vista de Dashboard tras login exitoso
-    window.location.reload() // o redirigir si usas Vue Router
+    window.location.reload()
   }
   </script>

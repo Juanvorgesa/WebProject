@@ -1,11 +1,11 @@
 <template>
   <div class="pump-card">
     <h3>{{ pump.id }}. {{pump.name}}</h3>
-    <i :class="['pi', 'pi-map-marker']">&nbsp;{{pump.ubication}}</i>
+    <i :class="['pi', 'pi-map-marker']">&nbsp;</i>{{pump.ubication}}
     <br>
     <i :class="['pi', 'pi-circle-fill', pump.state ? 'green' : 'red']" @click="toggleState(pump.id, pump)"></i>
-    <button @click="$emit('update', pump)">Actualizar</button>
-    <button @click="$emit('view', pump.id)">Ver</button>
+    <button @click="$emit('update', pump)"><i :class="['pi', 'pi-sync', 'update']"></i>Actualizar&nbsp;</button>
+    <button @click="$emit('view', pump.id)"><i :class="['pi', 'pi-eye', 'update']"></i>Ver&nbsp;</button>
   </div>
 </template>
 
@@ -21,7 +21,6 @@ const toggleState = async (id, pump) => {
     }
     pump.state = !pump.state
     const response = await axios.post('http://127.0.0.1:8000/pumps/alter', query)
-    console.log(response)
   } catch (error) {
     console.error('Error al alterar la bomba:', error)
   }
@@ -32,14 +31,18 @@ const toggleState = async (id, pump) => {
 .pump-card {
   border: 1px solid #ccc;
   padding: 1rem;
-  margin: 1rem 3rem 1rem 3rem;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  background: white;
+}
+
+.update {
+  font-size:12px
 }
 
 i {
-  font-size: 12px;
-  padding: 12px
+  font-size: 16px;
+  padding: 4px
 }
 
 .red {
@@ -47,7 +50,10 @@ i {
 }
 
 .green {
-  color: rgb(5, 165, 0)
+  color: rgb(5, 165, 0);
+}
+button {
+  margin-left: 0.5rem;
 }
 </style>
 

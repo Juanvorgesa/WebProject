@@ -1,4 +1,7 @@
 <template>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  </head>
   <router-view />
 </template>
 
@@ -6,8 +9,10 @@
 </script>
 
 <style>
-body {
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
 }
 </style>

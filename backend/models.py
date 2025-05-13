@@ -28,7 +28,6 @@ class CreateUser(BaseModel):
     password: str
 
 class CreatePump(BaseModel):
-    id: int
     name: str
     ubication: str
     min_voltage: float

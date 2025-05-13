@@ -168,7 +168,7 @@ def alter_pump(pump: models.GetPump, connection):
 def delete_pump(pump: models.GetPump, connection):
     cursor = getCursor(connection)
     try:
-        cursor.execute("DELETE FROM users WHERE id=%s", (pump.id,))
+        cursor.execute("DELETE FROM pumps WHERE id=%s", (pump.id,))
         connection.commit()
         return "Pump deleted successfully."
     except Exception as ex:
