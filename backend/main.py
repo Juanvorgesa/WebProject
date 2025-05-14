@@ -7,6 +7,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from encryption import encode_token, decode_token, verify_password, hash_password
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+"""
+Siguiente actualización: Poner un medidor en tiempo real (realizar una función que regrese un valor intermedio entre los dos valores)
+y ponerlos en la pumpcard, lo realizaré poniendo valores aleatorios alrededor del promedio.
+"""
+
 app = FastAPI()
 
 connection = database.connect()

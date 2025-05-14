@@ -179,7 +179,6 @@ def delete_pump(pump: models.GetPump, connection):
 def update_pump(pump: models.BasePump, connection):
     cursor = getCursor(connection)
     try:
-        print(pump)
         cursor.execute("UPDATE pumps SET name=%s, ubication=%s, min_voltage=%s, max_voltage=%s, min_elec_current=%s, max_elec_current=%s, min_flow=%s, max_flow=%s WHERE id=%s", (pump.name, pump.ubication, pump.min_voltage, pump.max_voltage, pump.min_elec_current, pump.max_elec_current, pump.min_flow, pump.max_flow, pump.id))
         connection.commit()
         return "Pump updated successfully."

@@ -19,8 +19,8 @@ const toggleState = async (id, pump) => {
     const query = {
         id: id
     }
-    pump.state = !pump.state
     const response = await axios.post('http://127.0.0.1:8000/pumps/alter', query)
+    pump.state = !pump.state
   } catch (error) {
     console.error('Error al alterar la bomba:', error)
   }
