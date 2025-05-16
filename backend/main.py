@@ -4,7 +4,8 @@ import database
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
-from encryption import encode_token, decode_token, verify_password, hash_password
+from encryption import encode_token, decode_token, verify_password
+import random
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 """
@@ -87,3 +88,9 @@ def update_pump(pump: models.BasePump):
 @app.post("/pumps/rename")
 def rename_pump(pump: models.RenamePump):
     return database.rename_pump(pump, connection)
+
+# Voltage variance
+
+@app.post("/pumps/var")
+def getVariance(values: models.GetMidPoint):
+    return round(random.uniform(values.min, values.max),2)

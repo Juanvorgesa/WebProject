@@ -73,3 +73,9 @@ class UpdateUser(BaseModel):
 class RenamePump(BaseModel):
     id: int
     name: str
+
+# Voltage variance
+
+class GetMidPoint(BaseModel):
+    min: float
+    max: float
